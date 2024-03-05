@@ -53,7 +53,7 @@ TWStr: &TWStr TW|Taiwan|taiwan|台湾|台北|台中|新北|彰化
 
 
 # 注意：机场的订阅链接后面需要加上 "&clash=1&flag=clash"
-AirPortURL: &AirPortURL https://node.msclm.net/api/v1/client/subscribe?token=4d861dcf444f6e36c6f43b8994f3a620&clash=1&flag=clash
+AirPortURL: &AirPortURL xxxxxxxx&clash=1&flag=clash
 
 
 proxy-providers:
