@@ -214,8 +214,13 @@ proxy-groups:
     name: 🎬Youtube
     type: select
     proxies:
-      - 🔰节点选择
       - ♻️自动选择
+      - 🔰节点选择
+    use:
+      - HK
+      - USA
+      - JP
+
       
     
   -
@@ -232,13 +237,13 @@ proxy-groups:
   -
     name: ✈️Telegram
     type: select
-    proxies:
-      - ♻️自动选择
-      - 🔰节点选择
     use:
       - HK
       - TW
       - JP
+    proxies:
+      - ♻️自动选择
+      - 🔰节点选择
       
   -
     name: 🔰Microsoft
