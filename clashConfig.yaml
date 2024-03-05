@@ -394,7 +394,6 @@ rules:
 
 # 特殊域名，总是发起请求，消耗电量
   - DOMAIN,otheve.beacon.qq.com,DIRECT
-
   - RULE-SET,YouTube,🎬Youtube
   - RULE-SET,Bilibili,🎬哔哩哔哩
   - RULE-SET,Telegram,✈️Telegram
