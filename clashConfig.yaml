@@ -1,0 +1,385 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: debug
+external-controller: 127.0.0.1:62534
+
+dns:
+  enable: true
+  prefer-h3: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  default-nameserver:
+    - 223.5.5.5
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:  #不使用虚假IP的域名
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+  nameserver-policy:
+    'www.baidu.com': '114.114.114.114'
+    '+.internal.crop.com': '10.0.0.1'
+    'geosite:cn': https://doh.pub/dns-query
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+    domain:
+      - '+.google.com'
+      - '+.facebook.com'
+      - '+.youtube.com'
+
+chatGPTStr: &chatGPTStr US|USA|America|america|United|united|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美
+HKStr: &HKStr HK|Hong|hong|香港|深港|沪港|京港|港
+USAStr: &USAStr US|USA|America|america|United|united|美国|凤凰城|洛杉矶|西雅图|芝加哥|纽约|沪美|美
+JPStr: &JPStr JP|Japan|japan|Tokyo|tokyo|日本|东京|大阪|京日|苏日|沪日|上日|川日|深日|广日
+KoreaStr: &KoreaStr KR|Korea|korea|KOR|韩国|首尔|韩|韓|春川
+SingaporeStr: &SingaporeStr SG|Sing|sing|新加坡|狮城|沪新|京新|深新|杭新|广新
+TWStr: &TWStr TW|Taiwan|taiwan|台湾|台北|台中|新北|彰化
+
+
+
+
+
+# 注意：机场的订阅链接后面需要加上 "&clash=1&flag=clash"
+AirPortURL: &AirPortURL https://node.msclm.net/api/v1/client/subscribe?token=4d861dcf444f6e36c6f43b8994f3a620&clash=1&flag=clash
+
+
+proxy-providers:
+  # 每一个代理组的filter，如果没有匹配上任何节点，最新的clash会报错
+  GPT:
+    type: http
+    path: ./profiles/GPT.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *chatGPTStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  HK:
+    type: http
+    path: ./profiles/HK.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *HKStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+ 
+  USA:
+    type: http
+    path: ./profiles/USA.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *USAStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  JP:
+    type: http
+    path: ./profiles/JP.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *JPStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  Korea:
+    type: http
+    path: ./profiles/Korea.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *KoreaStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  Singapore:
+    type: http
+    path: ./profiles/Singapose.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *SingaporeStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  TW:
+    type: http
+    path: ./profiles/TW.yaml
+    url: *AirPortURL
+    interval: 216000
+    filter: *TWStr
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+  
+  
+
+# 使用proxy来配置group，而且需要的proxy来自于proxy-providers(组)、proxies（单个节点）、proxy-groups（group，递归）
+# clash GUI里面的Rule标签，就是下面的group
+proxy-groups: 
+
+  - name: 🔰节点选择
+    type: select
+    proxies:
+      - HK
+      - JP
+      - Singapore
+      - Korea
+      - TW
+  -
+    name: ♻️自动选择
+    type: url-test
+    proxies:
+      - HK
+      - JP
+      - Korea
+      - Singapore
+      - TW
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  
+  - name: chatGPT
+    type: select
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - GPT
+
+  - name: HK
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - HK
+
+  - name: USA
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - USA
+  
+  - name: JP
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - JP
+
+  - name: Korea
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - Korea
+
+  - name: Singapore
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - Singapore
+  
+  - name: TW
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - TW
+      
+  
+  -
+    name: 🎬Youtube
+    type: select
+    proxies:
+      - 🔰节点选择
+      - ♻️自动选择
+      
+    
+  -
+    name: 🎬哔哩哔哩
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰节点选择
+    use:
+      - HK
+      - USA
+      - TW
+    
+  -
+    name: ✈️Telegram
+    type: select
+    proxies:
+      - ♻️自动选择
+      - 🔰节点选择
+    use:
+      - HK
+      - TW
+      - JP
+      
+  -
+    name: Microsoft
+    type: select
+    proxies:
+      - DIRECT
+      - ♻️自动选择
+      - 🔰节点选择
+    use: 
+      - HK
+      - USA
+  
+  -
+    name: 🍎苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰节点选择
+    use:
+      - HK
+      - USA
+      - JP
+
+  
+      
+rule-providers:
+  GPTAI:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/RyDuck/ClashPremiumConfigFile/main/rule-providers/GPTAI.yaml
+    path: ./releset/GPTAI.yaml
+    interval: 86400
+  
+  reject:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./ruleset/reject.yaml
+    interval: 86400
+
+  icloud:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+
+  apple:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./ruleset/apple.yaml
+    interval: 86400
+
+  google:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
+    path: ./ruleset/google.yaml
+    interval: 86400
+
+  proxy:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+
+  direct:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+
+  private:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./ruleset/private.yaml
+    interval: 86400
+
+  gfw:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+
+  tld-not-cn:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    path: ./ruleset/tld-not-cn.yaml
+    interval: 86400
+
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+
+  applications:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    path: ./ruleset/applications.yaml
+    interval: 86400
+
+rules:
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,REJECT
+  - GEOIP,LAN,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,lancidr,DIRECT
+  - RULE-SET,cncidr,DIRECT
+
+  - RULE-SET,icloud,DIRECT
+  - RULE-SET,apple,DIRECT
+
+  - RULE-SET,GPTAI,chatGPT
+  - RULE-SET,google,HK
+  - RULE-SET,telegramcidr,HK,no-resolve
+  - RULE-SET,proxy,HK
+  - RULE-SET,gfw,HK
+  - MATCH,HK
