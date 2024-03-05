@@ -391,6 +391,15 @@ rule-providers:
     
 
 rules:
+
+# 特殊域名，总是发起请求，消耗电量
+  - DOMAIN,otheve.beacon.qq.com,DIRECT
+
+  - RULE-SET,YouTube,🎬Youtube
+  - RULE-SET,Bilibili,🎬哔哩哔哩
+  - RULE-SET,Telegram,✈️Telegram
+  - RULE-SET,Microsoft,🔰Microsoft
+
   - RULE-SET,applications,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,reject,REJECT
@@ -402,11 +411,6 @@ rules:
 
   - RULE-SET,icloud,DIRECT
   - RULE-SET,apple,DIRECT
-
-  - RULE-SET,YouTube,🎬Youtube
-  - RULE-SET,Bilibili,🎬哔哩哔哩
-  - RULE-SET,Telegram,✈️Telegram
-  - RULE-SET,Microsoft,🔰Microsoft
   
   - RULE-SET,GPTAI,chatGPT
   - RULE-SET,google,HK
