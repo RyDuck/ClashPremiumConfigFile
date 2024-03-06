@@ -11,7 +11,7 @@ dns:
   listen: 0.0.0.0:1053
   ipv6: false
   default-nameserver:
-    - 223.5.5.5
+    - 112.100.101.101 
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:  #不使用虚假IP的域名
@@ -19,7 +19,7 @@ dns:
   nameserver-policy:
     'geosite:cn': https://doh.pub/dns-query
   nameserver:
-    - 223.5.5.5
+    - 112.100.101.101
   proxy-server-nameserver:
     - 8.8.8.8
     - 1.1.1.1
