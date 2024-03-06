@@ -152,7 +152,7 @@ proxy-groups:
   -
     name: ♻️自动选择
     type: url-test
-    proxies:
+    use:
       - HK
       - JP
       - Korea
@@ -161,21 +161,21 @@ proxy-groups:
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   
-  - name: chatGPT
+  - name: chatGPTGroup
     type: select
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - GPT
 
-  - name: HK
+  - name: HKGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - HK
 
-  - name: USA
+  - name: USAGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -189,21 +189,21 @@ proxy-groups:
     use:
       - JP
 
-  - name: Korea
+  - name: KoreaGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - Korea
 
-  - name: Singapore
+  - name: SingaporeGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - Singapore
   
-  - name: TW
+  - name: TWGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -216,7 +216,6 @@ proxy-groups:
     proxies:
       - ♻️自动选择
       - 🔰节点选择
-    use:
       - HK
       - USA
       - JP
@@ -229,7 +228,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 🔰节点选择
-    use:
       - HK
       - USA
       - TW
@@ -237,11 +235,10 @@ proxy-groups:
   -
     name: ✈️Telegram
     type: select
-    use:
+    proxies:
       - HK
       - TW
       - JP
-    proxies:
       - ♻️自动选择
       - 🔰节点选择
       
@@ -252,7 +249,6 @@ proxy-groups:
       - DIRECT
       - ♻️自动选择
       - 🔰节点选择
-    use: 
       - HK
       - USA
       - JP
@@ -393,6 +389,8 @@ rules:
 
 # 特殊域名，总是发起请求，消耗电量
   - DOMAIN,otheve.beacon.qq.com,DIRECT
+
+
   - RULE-SET,YouTube,🎬Youtube
   - RULE-SET,Bilibili,🎬哔哩哔哩
   - RULE-SET,Telegram,✈️Telegram
