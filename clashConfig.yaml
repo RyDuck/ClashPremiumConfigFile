@@ -53,7 +53,7 @@ TWStr: &TWStr TW|Taiwan|taiwan|台湾|台北|台中|新北|彰化
 
 
 # 注意：机场的订阅链接后面需要加上 "&clash=1&flag=clash"
-AirPortURL: &AirPortURL xxxxxxxx&clash=1&flag=clash
+AirPortURL: &AirPortURL https://node.msclm.net/api/v1/client/subscribe?token=4d861dcf444f6e36c6f43b8994f3a620&clash=1&flag=clash
 
 
 proxy-providers:
@@ -135,29 +135,28 @@ proxy-providers:
       url: http://www.gstatic.com/generate_204
       interval: 300
   
-  
 
-# 使用proxy来配置group，而且需要的proxy来自于proxy-providers(组)、proxies（单个节点）、proxy-groups（group，递归）
-# clash GUI里面的Rule标签，就是下面的group
 proxy-groups: 
 
+# 每一个代理组Group的“use”和“proxies”的区别：
+#   use是导入provider提供的服务器节点集合，
+#   proxies是导入同等地位group服务器节点（可递归那种），但只会汇总成一个节点
   - name: 🔰节点选择
     type: select
     proxies:
-      - HK
-      - JP
-      - Singapore
-      - Korea
-      - TW
-  -
-    name: ♻️自动选择
+      - HKGroup
+      - JPGroup
+      - SingaporeGroup
+      - KoreaGroup
+      - TWGroup
+  - name: ♻️自动选择
     type: url-test
-    use:
-      - HK
-      - JP
-      - Korea
-      - Singapore
-      - TW
+    proxies:
+      - HKGroup
+      - JPGroup
+      - SingaporeGroup
+      - KoreaGroup
+      - TWGroup
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   
@@ -182,7 +181,7 @@ proxy-groups:
     use:
       - USA
   
-  - name: JP
+  - name: JPGroup
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -216,9 +215,9 @@ proxy-groups:
     proxies:
       - ♻️自动选择
       - 🔰节点选择
-      - HK
-      - USA
-      - JP
+      - HKGroup
+      - USAGroup
+      - JPGroup
 
       
     
@@ -228,17 +227,17 @@ proxy-groups:
     proxies:
       - DIRECT
       - 🔰节点选择
-      - HK
-      - USA
-      - TW
+      - HKGroup
+      - USAGroup
+      - TWGroup
     
   -
     name: ✈️Telegram
     type: select
     proxies:
-      - HK
-      - TW
-      - JP
+      - HKGroup
+      - TWGroup
+      - JPGroup
       - ♻️自动选择
       - 🔰节点选择
       
@@ -249,10 +248,10 @@ proxy-groups:
       - DIRECT
       - ♻️自动选择
       - 🔰节点选择
-      - HK
-      - USA
-      - JP
-      - TW
+      - HKGroup
+      - USAGroup
+      - JPGroup
+      - TWGroup
   
 
   
@@ -408,9 +407,9 @@ rules:
   - RULE-SET,icloud,DIRECT
   - RULE-SET,apple,DIRECT
   
-  - RULE-SET,GPTAI,chatGPT
-  - RULE-SET,google,HK
-  - RULE-SET,telegramcidr,HK,no-resolve
-  - RULE-SET,proxy,HK
-  - RULE-SET,gfw,HK
-  - MATCH,HK
+  - RULE-SET,GPTAI,chatGPTGroup
+  - RULE-SET,google,HKGroup
+  - RULE-SET,telegramcidr,HKGroup,no-resolve
+  - RULE-SET,proxy,HKGroup
+  - RULE-SET,gfw,HKGroup
+  - MATCH,HKGroup
