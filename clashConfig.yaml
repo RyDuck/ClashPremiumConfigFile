@@ -393,7 +393,10 @@ rules:
 
 # 特殊域名，总是发起请求，消耗电量
   - DOMAIN,otheve.beacon.qq.com,DIRECT
+  - DOMAIN-KEYWORD,github.com,HKNodes
 
+
+  # 
 
   - RULE-SET,YouTube,🎬Youtube
   - RULE-SET,Bilibili,🎬哔哩哔哩
@@ -414,7 +417,7 @@ rules:
   
   # diect 
   - RULE-SET,otherNeedDirect,DIRECT
-  
+
   # need proxy 
   - RULE-SET,GPTAIRule,chatGPTNodes
   - RULE-SET,google,HKNodes
