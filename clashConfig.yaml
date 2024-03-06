@@ -161,6 +161,9 @@ proxy-groups:
     interval: 300
     use:
       - GPT
+    proxies:
+      - USAGroup
+
 
   - name: HKGroup
     type: url-test
@@ -402,9 +405,10 @@ rules:
   - RULE-SET,icloud,DIRECT
   - RULE-SET,apple,DIRECT
   
+  # need proxy 
   - RULE-SET,GPTAI,chatGPTGroup
   - RULE-SET,google,HKGroup
   - RULE-SET,telegramcidr,HKGroup,no-resolve
   - RULE-SET,proxy,HKGroup
   - RULE-SET,gfw,HKGroup
-  - MATCH,HKGroup
+  - MATCH,USAGroup
