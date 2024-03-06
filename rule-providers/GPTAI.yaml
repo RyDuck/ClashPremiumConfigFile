@@ -1,3 +1,4 @@
 payload:
-  - DOMAIN-KEYWORD,Claude,chatGPT
-  - DOMAIN-KEYWORD,openai.com,chatGPT
+  - DOMAIN-KEYWORD,claude,GPTAI
+  - DOMAIN-KEYWORD,openai,GPTAI
+  - DOMAIN-KEYWORD,anthropic,GPTAI
