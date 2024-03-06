@@ -255,9 +255,9 @@ proxy-groups:
   
       
 rule-providers:
-  GPTAI:
+  GPTAIRule:
     type: http
-    behavior: domain
+    behavior: classical
     url: https://raw.githubusercontent.com/RyDuck/ClashPremiumConfigFile/main/rule-providers/GPTAI.yaml
     path: ./releset/GPTAI.yaml
     interval: 86400
@@ -406,7 +406,7 @@ rules:
   - RULE-SET,apple,DIRECT
   
   # need proxy 
-  - RULE-SET,GPTAI,chatGPTGroup
+  - RULE-SET,GPTAIRule,chatGPTGroup
   - RULE-SET,google,HKGroup
   - RULE-SET,telegramcidr,HKGroup,no-resolve
   - RULE-SET,proxy,HKGroup

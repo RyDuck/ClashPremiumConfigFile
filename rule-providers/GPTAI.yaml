@@ -1,4 +1,6 @@
 payload:
-  - DOMAIN-KEYWORD,claude,GPTAI
-  - DOMAIN-KEYWORD,openai,GPTAI
-  - DOMAIN-KEYWORD,anthropic,GPTAI
+  - DOMAIN-KEYWORD,claude
+  - DOMAIN-KEYWORD,openai
+  - DOMAIN-KEYWORD,anthropic
+  - DOMAIN-SUFFIX,anthropic.com
+
