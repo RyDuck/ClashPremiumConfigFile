@@ -179,7 +179,7 @@ proxy-groups:
     use:
       - USA
   
-  - name: JPNo'de's
+  - name: JPNodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -381,7 +381,14 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
     path: ./ruleset/microsoft.yaml
     interval: 86400
-
+  
+  otherNeedDirect:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/RyDuck/ClashPremiumConfigFile/main/rule-providers/otherNeedDirect.yaml
+    path: ./ruleset/otherneeddirect.yaml
+    interval: 86400
+  
 rules:
 
 # 特殊域名，总是发起请求，消耗电量
@@ -404,6 +411,9 @@ rules:
 
   - RULE-SET,icloud,DIRECT
   - RULE-SET,apple,DIRECT
+  
+  # diect 
+  - RULE-SET,otherNeedDirect,DIRECT
   
   # need proxy 
   - RULE-SET,GPTAIRule,chatGPTNodes
