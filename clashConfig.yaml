@@ -139,68 +139,68 @@ proxy-groups:
   - name: 🔰节点选择
     type: select
     proxies:
-      - HKGroup
-      - JPGroup
-      - SingaporeGroup
-      - KoreaGroup
-      - TWGroup
+      - HKNodes
+      - JPNodes
+      - SinaporeNodes
+      - KoreaNodes
+      - TWNodes
   - name: ♻️自动选择
     type: url-test
     proxies:
-      - HKGroup
-      - JPGroup
-      - SingaporeGroup
-      - KoreaGroup
-      - TWGroup
+      - HKNodes
+      - JPNodes
+      - SinaporeNodes
+      - KoreaNodes
+      - JPNodes
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
   
-  - name: chatGPTGroup
+  - name: chatGPTNodes
     type: select
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - GPT
     proxies:
-      - USAGroup
+      - USANodes
 
 
-  - name: HKGroup
+  - name: HKNodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - HK
 
-  - name: USAGroup
+  - name: USANodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - USA
   
-  - name: JPGroup
+  - name: JPNo'de's
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - JP
 
-  - name: KoreaGroup
+  - name: KoreaNodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - Korea
 
-  - name: SingaporeGroup
+  - name: SinaporeNodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     use:
       - Singapore
   
-  - name: TWGroup
+  - name: TWNodes
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
@@ -213,9 +213,9 @@ proxy-groups:
     proxies:
       - ♻️自动选择
       - 🔰节点选择
-      - HKGroup
-      - USAGroup
-      - JPGroup
+      - HKNodes
+      - USANodes
+      - JPNodes
 
       
     
@@ -225,17 +225,17 @@ proxy-groups:
     proxies:
       - DIRECT
       - 🔰节点选择
-      - HKGroup
-      - USAGroup
-      - TWGroup
+      - HKNodes
+      - USANodes
+      - TWNodes
     
   -
     name: ✈️Telegram
     type: select
     proxies:
-      - HKGroup
-      - TWGroup
-      - JPGroup
+      - HKNodes
+      - TWNodes
+      - JPNodes
       - ♻️自动选择
       - 🔰节点选择
       
@@ -246,10 +246,10 @@ proxy-groups:
       - DIRECT
       - ♻️自动选择
       - 🔰节点选择
-      - HKGroup
-      - USAGroup
-      - JPGroup
-      - TWGroup
+      - HKNodes
+      - USANodes
+      - JPNodes
+      - TWNodes
   
 
   
@@ -406,9 +406,9 @@ rules:
   - RULE-SET,apple,DIRECT
   
   # need proxy 
-  - RULE-SET,GPTAIRule,chatGPTGroup
-  - RULE-SET,google,HKGroup
-  - RULE-SET,telegramcidr,HKGroup,no-resolve
-  - RULE-SET,proxy,HKGroup
-  - RULE-SET,gfw,HKGroup
-  - MATCH,USAGroup
+  - RULE-SET,GPTAIRule,chatGPTNodes
+  - RULE-SET,google,HKNodes
+  - RULE-SET,telegramcidr,HKNodes,no-resolve
+  - RULE-SET,proxy,HKNodes
+  - RULE-SET,gfw,HKNodes
+  - MATCH,USANodes
