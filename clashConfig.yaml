@@ -5,13 +5,16 @@ log-level: debug
 external-controller: 127.0.0.1:62534
 profile:
   store-fake-ip: true
+
+# dns 
 dns:
   enable: true
   prefer-h3: true
   listen: 0.0.0.0:1053
   ipv6: false
-  default-nameserver:
-    - 112.100.101.101 
+  # dns的解析服务器，因为有可能dns服务器是一个URL
+  default-nameserver: 
+    - 223.5.5.5
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:  #不使用虚假IP的域名
@@ -19,15 +22,18 @@ dns:
   nameserver-policy:
     'geosite:cn': https://doh.pub/dns-query
   nameserver:
-    - 112.100.101.101
-  proxy-server-nameserver:
+    - 223.5.5.5
+    - 114.114.114.114
     - 8.8.8.8
+    # fallback 开启时，clash会同时向
+    # 'nameserver'、'fallback'的dns服务器并行发送dns请求，
+    # 如果IP不一致，就使用fallback的IP地址
+  fallback:
     - 1.1.1.1
+    - 8.8.8.8 
   fallback-filter:
     geoip: true
     geoip-code: CN
-    geosite:
-      - gfw
     ipcidr:
       - 240.0.0.0/4
     domain:
