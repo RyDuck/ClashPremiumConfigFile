@@ -397,12 +397,19 @@ rule-providers:
     path: ./ruleset/otherneeddirect.yaml
     interval: 86400
   
+  otherNeedFrontProxy:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/RyDuck/ClashPremiumConfigFile/main/rule-providers/otherNeedFrontProxy.yaml
+    path: ./ruleset/otherneedfrontproxy.yaml
+    interval: 86400
+  
 rules:
-
+# 优先级 依次递减
 # 特殊域名，总是发起请求，消耗电量
   - DOMAIN,otheve.beacon.qq.com,DIRECT
-  - DOMAIN-KEYWORD,github.com,HKNodes
-
+  - DOMAIN-KEYWORD,github,HKNodes
+  - RULE-SET,otherNeedFrontProxy,HKNodes
 
   # 
 
