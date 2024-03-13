@@ -70,7 +70,7 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: 300
+      interval: 3000
   
   HK:
     type: http
@@ -142,7 +142,7 @@ proxy-providers:
 proxy-groups: 
 
 # 每一个代理组Group的“use”和“proxies”的区别：
-#   use是导入provider提供的服务器节点集合，
+#   use是导入provider提供的服务器节点集合，导入多个
 #   proxies是导入同等地位group服务器节点（可递归那种），但只会汇总成一个节点
   - name: 🔰节点选择
     type: select
@@ -165,8 +165,6 @@ proxy-groups:
   
   - name: chatGPTNodes
     type: select
-    url: http://www.gstatic.com/generate_204
-    interval: 300
     use:
       - GPT
     proxies:
