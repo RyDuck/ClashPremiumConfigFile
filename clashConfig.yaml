@@ -1,3 +1,13 @@
+# HTTP(S) 代理服务端口
+port: 7890
+
+# SOCKS5 代理服务端口
+socks-port: 7891
+
+# Linux 和 macOS 的透明代理服务端口 (TCP 和 TProxy UDP 重定向)
+redir-port: 7892
+
+# HTTP(S) 和 SOCKS4(A)/SOCKS5 代理服务共用一个端口
 mixed-port: 7890
 allow-lan: false
 mode: rule
